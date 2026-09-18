@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <base target="_top">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-  <title>SOLIDARITY M ATTENDANCE SYSTEM</title>
+  <title>SOLIDARITY M ATTENDANCE SYSTEM - SAMARINDA WITA</title>
 
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -73,22 +73,6 @@
       animation: gearSpinContinuous 7s linear infinite;
     }
 
-    /* Laser Scanner Animation */
-    @keyframes laserScan {
-      0% { top: 4%; opacity: 0.9; }
-      50% { top: 92%; opacity: 1; }
-      100% { top: 4%; opacity: 0.9; }
-    }
-    .laser-line {
-      position: absolute;
-      left: 0;
-      right: 0;
-      height: 3px;
-      background: linear-gradient(90deg, rgba(239, 68, 68, 0) 0%, #EF4444 50%, rgba(239, 68, 68, 0) 100%);
-      box-shadow: 0 0 14px 4px rgba(239, 68, 68, 0.7);
-      animation: laserScan 2.4s ease-in-out infinite;
-    }
-
     /* Page Slide Transitions */
     .view-container {
       position: relative;
@@ -141,6 +125,12 @@
     }
     .nav-item:active {
       transform: scale(0.92);
+    }
+
+    /* Custom select dropdown styling */
+    select option {
+      background-color: #161920;
+      color: #FFFFFF;
     }
   </style>
 </head>
@@ -269,7 +259,7 @@
           </div>
           <div>
             <h2 class="text-sm font-black font-mono tracking-wider">SOLIDARITY M</h2>
-            <p class="text-[10px] text-crimson font-mono">HMM FOREVER</p>
+            <p class="text-[10px] text-crimson font-mono">SAMARINDA • WITA</p>
           </div>
         </div>
 
@@ -342,7 +332,7 @@
           </div>
           <div>
             <h1 class="text-xs font-bold font-mono tracking-wide">SOLIDARITY M</h1>
-            <p class="text-[9px] text-crimson font-mono">FOREVER</p>
+            <p class="text-[9px] text-crimson font-mono">SAMARINDA • WITA</p>
           </div>
         </div>
         <div class="flex items-center gap-2">
@@ -363,7 +353,7 @@
             <div class="relative z-10">
               <span class="text-xs font-mono text-crimson uppercase tracking-widest">Portal Presensi & Keanggotaan</span>
               <h2 id="dashWelcome" class="text-xl md:text-2xl font-black mt-1">Selamat Datang, Rekan Mesin</h2>
-              <p class="text-xs text-steel mt-1 max-w-xl">Pantau kehadiran kegiatan akademik dan himpunan dalam satu sistem terintegrasi.</p>
+              <p class="text-xs text-steel mt-1 max-w-xl">Pantau kehadiran kegiatan akademik dan himpunan dalam satu sistem terintegrasi (WITA Kota Samarinda).</p>
             </div>
           </div>
 
@@ -382,12 +372,15 @@
         <section id="view-kegiatan" class="view-panel space-y-6">
           <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div>
-              <h2 class="text-xl font-bold font-mono">DAFTAR KEGIATAN MAHASISWA</h2>
-              <p class="text-xs text-steel">Agenda kegiatan akademik dan himpunan teknik mesin terdaftar</p>
+              <div class="flex items-center gap-2">
+                <h2 class="text-xl font-bold font-mono">DAFTAR KEGIATAN MAHASISWA</h2>
+                <span class="px-2 py-0.5 rounded bg-red-950/80 border border-crimson/50 text-[10px] font-mono text-crimson uppercase font-bold">WITA / Samarinda</span>
+              </div>
+              <p class="text-xs text-steel mt-0.5">Agenda kegiatan akademik dan himpunan teknik mesin terdaftar (Waktu Indonesia Tengah)</p>
             </div>
             <button id="btnTambahKegiatan" onclick="openModalTambahKegiatan()" class="hidden bg-crimson hover:bg-red-600 text-white font-bold text-xs uppercase px-4 py-2.5 rounded-xl shadow-lg shadow-red-900/30 transition-all flex items-center justify-center gap-2 self-start">
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
-              <span>Tambah Kegiatan Baru</span>
+              <span>+ Buat Kegiatan Baru (WITA)</span>
             </button>
           </div>
 
@@ -404,14 +397,11 @@
           <!-- Scanner Viewport Card Berbasis Native Camera -->
           <div class="max-w-md mx-auto bg-carbonLight border border-slatePanel rounded-2xl p-5 shadow-2xl relative overflow-hidden">
             
-            <!-- Hidden File Input dengan Direct Native Camera Trigger -->
             <input type="file" id="nativeCameraInput" accept="image/*" capture="environment" onchange="handleNativeCameraFile(event)" class="hidden">
             <input type="file" id="galleryFileInput" accept="image/*" onchange="handleNativeCameraFile(event)" class="hidden">
 
-            <!-- Area Preview & Scanner Target -->
             <div id="scannerBoxArea" class="relative w-full aspect-square bg-slateDark/60 rounded-2xl overflow-hidden border-2 border-dashed border-slatePanel flex flex-col items-center justify-center p-4 transition-all">
               
-              <!-- State Default Sebelum Memotret -->
               <div id="scannerPromptInitial" class="flex flex-col items-center text-center">
                 <div class="w-20 h-20 rounded-3xl bg-gradient-to-br from-crimson/20 to-red-900/30 border border-crimson/40 flex items-center justify-center text-crimson mb-4 shadow-xl">
                   <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -425,7 +415,6 @@
                 </p>
               </div>
 
-              <!-- State Saat Foto Sedang Diproses -->
               <div id="scannerProcessingArea" class="hidden absolute inset-0 bg-carbon/95 flex flex-col items-center justify-center p-4">
                 <img id="scannedImagePreview" class="max-h-48 max-w-full rounded-xl object-contain border border-slatePanel shadow-lg mb-3">
                 <div class="flex items-center gap-2 text-crimson font-mono text-xs font-bold">
@@ -434,11 +423,9 @@
                 </div>
               </div>
 
-              <!-- Elemen Tersembunyi untuk Engine Decode HTML5-QRCode -->
               <div id="qr-reader" class="hidden"></div>
             </div>
 
-            <!-- Tombol Utama: Langsung Panggil Kamera Bawaan HP -->
             <div class="mt-5 space-y-2.5">
               <button type="button" onclick="triggerNativeCamera()" class="w-full bg-gradient-to-r from-crimson to-red-700 hover:from-red-600 hover:to-crimson py-4 px-6 rounded-xl font-bold text-sm tracking-wider uppercase transition-all shadow-lg shadow-red-900/40 active:scale-[0.98] flex items-center justify-center gap-2.5">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -460,7 +447,6 @@
               </div>
             </div>
 
-            <!-- Panel Input Token Manual -->
             <div id="manualTokenBox" class="mt-4 pt-4 border-t border-slatePanel hidden">
               <label class="block text-[11px] text-steel font-mono uppercase mb-1.5">Input Kode Token Presensi</label>
               <div class="flex gap-2">
@@ -478,7 +464,7 @@
           <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div>
               <h2 id="riwayatTitle" class="text-xl font-bold font-mono">RIWAYAT PRESENSI</h2>
-              <p class="text-xs text-steel">Log kehadiran lengkap dan pengajuan permohonan izin</p>
+              <p class="text-xs text-steel">Log kehadiran lengkap dan pengajuan permohonan izin (Zona Waktu WITA)</p>
             </div>
             <div class="flex items-center gap-2">
               <button id="btnBukaAjukanIzin" onclick="openModalAjukanIzin()" class="bg-slateDark hover:bg-slatePanel border border-slatePanel text-white font-bold text-xs px-4 py-2.5 rounded-xl transition-all flex items-center gap-2">
@@ -514,7 +500,7 @@
                   <tr>
                     <th class="p-3.5">Mahasiswa</th>
                     <th class="p-3.5">Kegiatan</th>
-                    <th class="p-3.5">Waktu</th>
+                    <th class="p-3.5">Waktu (WITA)</th>
                     <th class="p-3.5">Status</th>
                   </tr>
                 </thead>
@@ -616,45 +602,119 @@
     </div>
   </div>
 
-  <!-- MODAL TAMBAH KEGIATAN -->
-  <div id="modalTambahKegiatan" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden items-center justify-center p-4">
-    <div class="bg-carbonLight border border-slatePanel rounded-2xl max-w-lg w-full p-6 shadow-2xl space-y-4">
-      <div class="flex items-center justify-between border-b border-slatePanel pb-3">
-        <h3 class="text-sm font-bold font-mono uppercase">Buat Kegiatan HMM Baru</h3>
-        <button onclick="closeModal('modalTambahKegiatan')" class="text-steel hover:text-white text-lg">✕</button>
+  <!-- ================= MODAL TAMBAH KEGIATAN (WITA SAMARINDA OVERHAUL) ================= -->
+  <div id="modalTambahKegiatan" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-md hidden items-center justify-center p-4">
+    <div class="bg-carbonLight border border-slatePanel rounded-3xl max-w-lg w-full p-6 shadow-2xl space-y-5 relative overflow-hidden">
+      <!-- Glow Accent Header -->
+      <div class="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-transparent via-crimson to-transparent"></div>
+
+      <!-- Modal Header -->
+      <div class="flex items-start justify-between border-b border-slatePanel/70 pb-4">
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+            <span class="text-[10px] font-mono tracking-widest text-crimson font-bold uppercase">SAMARINDA (WITA • UTC+8)</span>
+          </div>
+          <h3 class="text-base md:text-lg font-extrabold font-mono text-white mt-1">BUAT KEGIATAN HMM BARU</h3>
+          <p class="text-[11px] text-steel">Penjadwalan kegiatan akademik & himpunan teknik mesin</p>
+        </div>
+        <button onclick="closeModal('modalTambahKegiatan')" class="p-2 rounded-xl bg-slateDark hover:bg-slatePanel text-steel hover:text-white transition-all text-sm">✕</button>
       </div>
 
-      <form onsubmit="handleSaveKegiatan(event)" class="space-y-3 text-xs">
-        <div>
-          <label class="block text-steel font-medium mb-1">Nama Kegiatan</label>
-          <input type="text" id="kegNama" required placeholder="Contoh: Rapat Kerja HMM 2026" class="w-full bg-slateDark border border-slatePanel rounded-xl px-3 py-2.5 focus:border-crimson focus:outline-none">
-        </div>
-        <div class="grid grid-cols-3 gap-2">
-          <div>
-            <label class="block text-steel font-medium mb-1">Tanggal</label>
-            <input type="date" id="kegTanggal" required class="w-full bg-slateDark border border-slatePanel rounded-xl px-2 py-2 focus:border-crimson focus:outline-none">
+      <!-- Live Clock Banner Kota Samarinda -->
+      <div class="bg-slateDark/90 border border-slatePanel rounded-2xl p-3 flex items-center justify-between">
+        <div class="flex items-center gap-2.5">
+          <div class="w-8 h-8 rounded-xl bg-crimson/20 border border-crimson/40 flex items-center justify-center text-crimson">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
           </div>
           <div>
-            <label class="block text-steel font-medium mb-1">Mulai</label>
-            <input type="time" id="kegMulai" required class="w-full bg-slateDark border border-slatePanel rounded-xl px-2 py-2 focus:border-crimson focus:outline-none">
-          </div>
-          <div>
-            <label class="block text-steel font-medium mb-1">Selesai</label>
-            <input type="time" id="kegSelesai" required class="w-full bg-slateDark border border-slatePanel rounded-xl px-2 py-2 focus:border-crimson focus:outline-none">
+            <div class="text-[10px] text-steel font-mono">WAKTU SAAT INI (KOTA SAMARINDA)</div>
+            <div id="samarindaClockDisplay" class="text-sm font-bold font-mono text-white tracking-wider">--:--:-- WITA</div>
           </div>
         </div>
+        <span class="text-[10px] font-mono px-2.5 py-1 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 font-semibold">
+          ZONE: WITA
+        </span>
+      </div>
+
+      <!-- Form Pembuatan Kegiatan -->
+      <form onsubmit="handleSaveKegiatan(event)" class="space-y-4 text-xs">
         <div>
-          <label class="block text-steel font-medium mb-1">Lokasi</label>
-          <input type="text" id="kegLokasi" required placeholder="Gedung D / Lab Mesin" class="w-full bg-slateDark border border-slatePanel rounded-xl px-3 py-2.5 focus:border-crimson focus:outline-none">
-        </div>
-        <div>
-          <label class="block text-steel font-medium mb-1">Deskripsi</label>
-          <textarea id="kegDeskripsi" rows="2" placeholder="Detail agenda kegiatan..." class="w-full bg-slateDark border border-slatePanel rounded-xl px-3 py-2 focus:border-crimson focus:outline-none"></textarea>
+          <label class="block text-steel font-medium mb-1.5 uppercase text-[11px] tracking-wider">Nama Kegiatan</label>
+          <input type="text" id="kegNama" required placeholder="Contoh: Rapat Kerja HMM & Persiapan LDK 2026" class="w-full bg-slateDark border border-slatePanel rounded-xl px-3.5 py-2.5 focus:border-crimson focus:outline-none text-white text-xs">
         </div>
 
-        <div class="flex justify-end gap-2 pt-2">
-          <button type="button" onclick="closeModal('modalTambahKegiatan')" class="px-4 py-2 rounded-xl bg-slateDark text-steel hover:text-white">Batal</button>
-          <button type="submit" class="px-5 py-2 rounded-xl bg-crimson hover:bg-red-600 text-white font-bold">Terbitkan Kegiatan</button>
+        <div>
+          <label class="block text-steel font-medium mb-1.5 uppercase text-[11px] tracking-wider">Tanggal Pelaksanaan</label>
+          <input type="date" id="kegTanggal" required class="w-full bg-slateDark border border-slatePanel rounded-xl px-3.5 py-2.5 focus:border-crimson focus:outline-none text-white text-xs font-mono">
+        </div>
+
+        <!-- 24-HOUR INDUSTRIAL TIME PICKER (WITA SAMARINDA) -->
+        <div class="bg-carbon border border-slatePanel rounded-2xl p-3.5 space-y-3">
+          <div class="flex items-center justify-between">
+            <span class="text-[11px] font-mono font-bold text-steelLight uppercase">Waktu Kegiatan (Format 24 Jam WITA)</span>
+            <span class="text-[10px] text-crimson font-mono font-semibold">Bebas AM/PM</span>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <!-- Waktu Mulai -->
+            <div class="bg-slateDark border border-slatePanel rounded-xl p-2.5">
+              <span class="block text-[10px] font-mono text-steel uppercase mb-1">Jam Mulai (WITA)</span>
+              <div class="flex items-center gap-1.5">
+                <select id="kegMulaiJam" class="flex-1 bg-carbonLight border border-slatePanel rounded-lg py-1.5 px-2 text-xs font-mono text-white text-center focus:outline-none focus:border-crimson"></select>
+                <span class="text-steel font-bold font-mono">:</span>
+                <select id="kegMulaiMenit" class="flex-1 bg-carbonLight border border-slatePanel rounded-lg py-1.5 px-2 text-xs font-mono text-white text-center focus:outline-none focus:border-crimson"></select>
+                <span class="text-[10px] font-mono px-1.5 py-1 bg-slatePanel rounded text-steel">WITA</span>
+              </div>
+            </div>
+
+            <!-- Waktu Selesai -->
+            <div class="bg-slateDark border border-slatePanel rounded-xl p-2.5">
+              <span class="block text-[10px] font-mono text-steel uppercase mb-1">Jam Selesai (WITA)</span>
+              <div class="flex items-center gap-1.5">
+                <select id="kegSelesaiJam" class="flex-1 bg-carbonLight border border-slatePanel rounded-lg py-1.5 px-2 text-xs font-mono text-white text-center focus:outline-none focus:border-crimson"></select>
+                <span class="text-steel font-bold font-mono">:</span>
+                <select id="kegSelesaiMenit" class="flex-1 bg-carbonLight border border-slatePanel rounded-lg py-1.5 px-2 text-xs font-mono text-white text-center focus:outline-none focus:border-crimson"></select>
+                <span class="text-[10px] font-mono px-1.5 py-1 bg-slatePanel rounded text-steel">WITA</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Quick Preset Jam Perkuliahan & HMM -->
+          <div>
+            <div class="text-[10px] text-steel font-mono mb-1.5">PILIHAN CEPAT AGENDA KAMPUS (WITA):</div>
+            <div class="flex flex-wrap gap-1.5">
+              <button type="button" onclick="applyTimePreset('08:00', '11:30')" class="px-2.5 py-1 rounded-lg bg-slateDark hover:bg-crimson text-steel hover:text-white border border-slatePanel text-[10px] font-mono transition-all">
+                Pagi (08:00 - 11:30)
+              </button>
+              <button type="button" onclick="applyTimePreset('13:30', '16:00')" class="px-2.5 py-1 rounded-lg bg-slateDark hover:bg-crimson text-steel hover:text-white border border-slatePanel text-[10px] font-mono transition-all">
+                Siang (13:30 - 16:00)
+              </button>
+              <button type="button" onclick="applyTimePreset('16:00', '18:00')" class="px-2.5 py-1 rounded-lg bg-slateDark hover:bg-crimson text-steel hover:text-white border border-slatePanel text-[10px] font-mono transition-all">
+                Sore (16:00 - 18:00)
+              </button>
+              <button type="button" onclick="applyTimePreset('19:30', '22:00')" class="px-2.5 py-1 rounded-lg bg-slateDark hover:bg-crimson text-steel hover:text-white border border-slatePanel text-[10px] font-mono transition-all">
+                Malam HMM (19:30 - 22:00)
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-steel font-medium mb-1.5 uppercase text-[11px] tracking-wider">Lokasi Kegiatan</label>
+          <input type="text" id="kegLokasi" required placeholder="Gedung D / Lab Teknik Mesin / Ruang Rapat HMM" class="w-full bg-slateDark border border-slatePanel rounded-xl px-3.5 py-2.5 focus:border-crimson focus:outline-none text-white text-xs">
+        </div>
+
+        <div>
+          <label class="block text-steel font-medium mb-1.5 uppercase text-[11px] tracking-wider">Deskripsi Kegiatan</label>
+          <textarea id="kegDeskripsi" rows="2" placeholder="Detail agenda, tata tertib kegiatan, atau informasi tambahan..." class="w-full bg-slateDark border border-slatePanel rounded-xl px-3.5 py-2 focus:border-crimson focus:outline-none text-white text-xs"></textarea>
+        </div>
+
+        <div class="flex items-center justify-end gap-2.5 pt-2 border-t border-slatePanel/70">
+          <button type="button" onclick="closeModal('modalTambahKegiatan')" class="px-4 py-2.5 rounded-xl bg-slateDark text-steel hover:text-white transition-all text-xs font-semibold">Batal</button>
+          <button type="submit" class="px-6 py-2.5 rounded-xl bg-gradient-to-r from-crimson to-red-700 hover:from-red-600 hover:to-crimson text-white font-bold text-xs uppercase tracking-wider shadow-lg shadow-red-900/40 transition-all">
+            Terbitkan Kegiatan
+          </button>
         </div>
       </form>
     </div>
@@ -665,7 +725,7 @@
     <div class="bg-carbonLight border border-slatePanel rounded-3xl max-w-md w-full p-6 text-center shadow-2xl relative">
       <button onclick="closeModal('modalShowQr')" class="absolute top-4 right-4 text-steel hover:text-white text-lg">✕</button>
 
-      <span class="text-[10px] font-mono text-crimson uppercase tracking-widest">Layar Presensi Kegiatan</span>
+      <span class="text-[10px] font-mono text-crimson uppercase tracking-widest">Layar Presensi Kegiatan (WITA)</span>
       <h3 id="modalQrTitle" class="text-lg font-bold font-mono mt-1">Nama Kegiatan</h3>
       <p id="modalQrSubtitle" class="text-xs text-steel mt-0.5 mb-5">Silakan scan QR Code berikut menggunakan smartphone Anda</p>
 
@@ -697,7 +757,7 @@
         </div>
         <div>
           <label class="block text-steel font-medium mb-1">Alasan Tidak Dapat Hadir</label>
-          <textarea id="izinAlasan" required rows="3" placeholder="Sakit / Ada keperluan mendesak..." class="w-full bg-slateDark border border-slatePanel rounded-xl px-3 py-2 focus:border-crimson focus:outline-none"></textarea>
+          <textarea id="izinAlasan" required rows="3" placeholder="Sakit / Ada keperluan mendesak..." class="w-full bg-slateDark border border-slatePanel rounded-xl px-3 py-2 focus:border-crimson focus:outline-none text-white"></textarea>
         </div>
         <div>
           <label class="block text-steel font-medium mb-1">Unggah Bukti Surat / Foto (Opsional)</label>
@@ -723,15 +783,15 @@
       <form onsubmit="handleCreateAdmin(event)" class="space-y-3 text-xs">
         <div>
           <label class="block text-steel font-medium mb-1">NIM Admin</label>
-          <input type="text" id="adminNim" required placeholder="Contoh: 2511102442000" class="w-full bg-slateDark border border-slatePanel rounded-xl px-3 py-2.5 focus:border-crimson focus:outline-none font-mono">
+          <input type="text" id="adminNim" required placeholder="Contoh: 2511102442000" class="w-full bg-slateDark border border-slatePanel rounded-xl px-3 py-2.5 focus:border-crimson focus:outline-none font-mono text-white">
         </div>
         <div>
           <label class="block text-steel font-medium mb-1">Nama Lengkap</label>
-          <input type="text" id="adminNama" required placeholder="Nama pengurus" class="w-full bg-slateDark border border-slatePanel rounded-xl px-3 py-2.5 focus:border-crimson focus:outline-none">
+          <input type="text" id="adminNama" required placeholder="Nama pengurus" class="w-full bg-slateDark border border-slatePanel rounded-xl px-3 py-2.5 focus:border-crimson focus:outline-none text-white">
         </div>
         <div>
           <label class="block text-steel font-medium mb-1">Password Masuk</label>
-          <input type="password" id="adminPassword" required placeholder="••••••••" class="w-full bg-slateDark border border-slatePanel rounded-xl px-3 py-2.5 focus:border-crimson focus:outline-none">
+          <input type="password" id="adminPassword" required placeholder="••••••••" class="w-full bg-slateDark border border-slatePanel rounded-xl px-3 py-2.5 focus:border-crimson focus:outline-none text-white">
         </div>
 
         <div class="flex justify-end gap-2 pt-2">
@@ -744,8 +804,7 @@
 
   <script>
     /**
-     * URL Web App Google Apps Script Aktif
-     * Digunakan saat dihosting di GitHub Pages untuk melakukan komunikasi API via HTTP POST
+     * URL Web App Google Apps Script Aktif (Samarinda WITA Backend)
      */
     const GAS_BACKEND_URL = "https://script.google.com/macros/s/AKfycbzgnttDCtcmtpC69pXWLRdVWFRTvksXiMzK81otdoUxNSMNx39wO-5oYO4eBlk9blP3/exec";
 
@@ -753,8 +812,11 @@
     let cachedKegiatan = [];
     let cachedRekap = [];
     let html5QrScannerInstance = null;
+    let clockIntervalId = null;
 
     window.addEventListener('DOMContentLoaded', () => {
+      initTimeDropdownOptions();
+
       const savedUser = localStorage.getItem('SOLM_USER_SESSION');
       if (savedUser) {
         try {
@@ -765,6 +827,82 @@
         }
       }
     });
+
+    /**
+     * Menghasilkan Opsi Jam (00-23) dan Menit (00-55) untuk 24-Jam WITA Selector
+     */
+    function initTimeDropdownOptions() {
+      const jamMulai = document.getElementById('kegMulaiJam');
+      const menitMulai = document.getElementById('kegMulaiMenit');
+      const jamSelesai = document.getElementById('kegSelesaiJam');
+      const menitSelesai = document.getElementById('kegSelesaiMenit');
+
+      jamMulai.innerHTML = '';
+      jamSelesai.innerHTML = '';
+      menitMulai.innerHTML = '';
+      menitSelesai.innerHTML = '';
+
+      // Jam 00 - 23
+      for (let h = 0; h <= 23; h++) {
+        const val = (h < 10 ? '0' : '') + h;
+        jamMulai.innerHTML += `<option value="${val}">${val}</option>`;
+        jamSelesai.innerHTML += `<option value="${val}">${val}</option>`;
+      }
+
+      // Menit 00 - 55 (interval 5 menit)
+      for (let m = 0; m <= 55; m += 5) {
+        const val = (m < 10 ? '0' : '') + m;
+        menitMulai.innerHTML += `<option value="${val}">${val}</option>`;
+        menitSelesai.innerHTML += `<option value="${val}">${val}</option>`;
+      }
+
+      // Default values: 08:00 - 10:00
+      jamMulai.value = "08";
+      menitMulai.value = "00";
+      jamSelesai.value = "10";
+      menitSelesai.value = "00";
+    }
+
+    /**
+     * Mengisi Cepat Jam Menggunakan Preset Agenda Kampus
+     */
+    function applyTimePreset(mulaiStr, selesaiStr) {
+      const [mH, mM] = mulaiStr.split(':');
+      const [sH, sM] = selesaiStr.split(':');
+
+      document.getElementById('kegMulaiJam').value = mH;
+      document.getElementById('kegMulaiMenit').value = mM;
+      document.getElementById('kegSelesaiJam').value = sH;
+      document.getElementById('kegSelesaiMenit').value = sM;
+
+      showToast(`Waktu WITA disetel ke ${mulaiStr} - ${selesaiStr}`, 'info');
+    }
+
+    /**
+     * Menjalankan Jam Digital Real-Time Kota Samarinda (WITA / UTC+8)
+     */
+    function startSamarindaClock() {
+      const updateClock = () => {
+        const el = document.getElementById('samarindaClockDisplay');
+        if (!el) return;
+
+        const now = new Date();
+        // Konversi ke zona waktu Asia/Makassar (WITA)
+        const timeStr = new Intl.DateTimeFormat('id-ID', {
+          timeZone: 'Asia/Makassar',
+          hour: '2-digit',
+          minute: '2-digit',
+          second: '2-digit',
+          hour12: false
+        }).format(now);
+
+        el.innerText = `${timeStr.replace(/\./g, ':')} WITA`;
+      };
+
+      updateClock();
+      if (clockIntervalId) clearInterval(clockIntervalId);
+      clockIntervalId = setInterval(updateClock, 1000);
+    }
 
     /**
      * Pembungkus Pemanggilan Server Universal (Dual-Mode: Apps Script Container & GitHub Pages)
@@ -797,11 +935,10 @@
           return;
         }
 
-        // 2. Jika dihosting di GitHub Pages / Luar Apps Script (Gunakan fetch HTTP POST tanpa CORS preflight)
+        // 2. Jika dihosting di GitHub Pages / Luar Apps Script (fetch HTTP POST)
         try {
           const response = await fetch(GAS_BACKEND_URL, {
             method: 'POST',
-            // PENTING: Jangan pasang header custom 'Content-Type: application/json' agar browser tidak mengirim request OPTIONS
             body: JSON.stringify({
               action: actionName,
               payload: payload
@@ -1002,13 +1139,13 @@
         btnTambahKeg.classList.remove('hidden');
         btnExport.classList.remove('hidden');
         mobileNavAdminBtn.classList.remove('hidden');
-        document.getElementById('riwayatTitle').innerText = 'MONITORING PRESENSI KELAS';
+        document.getElementById('riwayatTitle').innerText = 'MONITORING PRESENSI KELAS (WITA)';
       } else {
         adminNavGroup.classList.add('hidden');
         btnTambahKeg.classList.add('hidden');
         btnExport.classList.add('hidden');
         mobileNavAdminBtn.classList.add('hidden');
-        document.getElementById('riwayatTitle').innerText = 'RIWAYAT PRESENSI SAYA';
+        document.getElementById('riwayatTitle').innerText = 'RIWAYAT PRESENSI SAYA (WITA)';
       }
 
       navigateTo('dashboard');
@@ -1122,7 +1259,7 @@
             <h4 class="text-sm md:text-base font-bold text-white group-hover:text-crimson transition-colors">${k.nama_kegiatan}</h4>
             <div class="flex items-center gap-2 text-[11px] text-steel mt-2">
               <svg class="w-3.5 h-3.5 text-crimson" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-              <span>${k.waktu_mulai} - ${k.waktu_selesai} WITA</span>
+              <span class="font-mono">${k.waktu_mulai} - ${k.waktu_selesai} WITA</span>
             </div>
             <div class="flex items-center gap-2 text-[11px] text-steel mt-1">
               <svg class="w-3.5 h-3.5 text-crimson" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/></svg>
@@ -1363,7 +1500,7 @@
             </td>
             <td class="p-3.5 text-steelLight">${r.nama_kegiatan}</td>
             <td class="p-3.5">
-              <div class="text-white">${r.jam || '-'}</div>
+              <div class="text-white font-mono">${r.jam || '-'} WITA</div>
               <div class="text-[10px] text-steel font-mono">${r.tanggal}</div>
             </td>
             <td class="p-3.5">
@@ -1399,58 +1536,53 @@
       filterSelect.innerHTML = '<option value="ALL">Semua Kegiatan</option>';
 
       kegiatans.forEach(k => {
-        izinSelect.innerHTML += `<option value="${k.id_kegiatan}">${k.nama_kegiatan}</option>`;
+        izinSelect.innerHTML += `<option value="${k.id_kegiatan}">${k.nama_kegiatan} (${k.tanggal})</option>`;
         filterSelect.innerHTML += `<option value="${k.id_kegiatan}">${k.nama_kegiatan}</option>`;
       });
     }
 
-    function openModalAjukanIzin() {
-      openModal('modalAjukanIzin');
-    }
-
-    async function handleSubmitIzin(e) {
-      e.preventDefault();
-      const idKeg = document.getElementById('izinKegiatanSelect').value;
-      const alasan = document.getElementById('izinAlasan').value.trim();
-      const fileInput = document.getElementById('izinBuktiFile');
-
-      let buktiBase64 = '';
-      if (fileInput.files.length > 0) {
-        buktiBase64 = await toBase64(fileInput.files[0]);
-      }
-
-      try {
-        const res = await callServer('submitIzin', {
-          id_kegiatan: idKeg,
-          nim: currentUser.nim,
-          alasan: alasan,
-          buktiBase64: buktiBase64
-        });
-
-        if (res && res.success) {
-          showToast(res.message, 'success');
-          closeModal('modalAjukanIzin');
-        } else {
-          showToast(res ? res.message : 'Gagal mengajukan izin.', 'error');
-        }
-      } catch (err) {
-        showToast('Terjadi kesalahan: ' + err.message, 'error');
-      }
-    }
-
     function openModalTambahKegiatan() {
+      // Set tanggal default ke hari ini di Samarinda
+      const now = new Date();
+      const todaySamarinda = new Intl.DateTimeFormat('en-CA', {
+        timeZone: 'Asia/Makassar',
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit'
+      }).format(now);
+
+      const tglInput = document.getElementById('kegTanggal');
+      if (tglInput) tglInput.value = todaySamarinda;
+
+      // Start live clock Samarinda
+      startSamarindaClock();
       openModal('modalTambahKegiatan');
     }
 
     async function handleSaveKegiatan(e) {
       e.preventDefault();
+
+      const nama = document.getElementById('kegNama').value.trim();
+      const tanggal = document.getElementById('kegTanggal').value;
+      const lokasi = document.getElementById('kegLokasi').value.trim();
+      const deskripsi = document.getElementById('kegDeskripsi').value.trim();
+
+      // Ambil waktu dari 24-Hour Selector
+      const mulaiJam = document.getElementById('kegMulaiJam').value;
+      const mulaiMenit = document.getElementById('kegMulaiMenit').value;
+      const selesaiJam = document.getElementById('kegSelesaiJam').value;
+      const selesaiMenit = document.getElementById('kegSelesaiMenit').value;
+
+      const waktuMulai = `${mulaiJam}:${mulaiMenit}`;
+      const waktuSelesai = `${selesaiJam}:${selesaiMenit}`;
+
       const payload = {
-        nama_kegiatan: document.getElementById('kegNama').value.trim(),
-        tanggal: document.getElementById('kegTanggal').value,
-        waktu_mulai: document.getElementById('kegMulai').value,
-        waktu_selesai: document.getElementById('kegSelesai').value,
-        lokasi: document.getElementById('kegLokasi').value.trim(),
-        deskripsi: document.getElementById('kegDeskripsi').value.trim()
+        nama_kegiatan: nama,
+        tanggal: tanggal,
+        waktu_mulai: waktuMulai,
+        waktu_selesai: waktuSelesai,
+        lokasi: lokasi,
+        deskripsi: deskripsi
       };
 
       try {
@@ -1570,6 +1702,40 @@
       }
     }
 
+    function openModalAjukanIzin() {
+      openModal('modalAjukanIzin');
+    }
+
+    async function handleSubmitIzin(e) {
+      e.preventDefault();
+      const idKeg = document.getElementById('izinKegiatanSelect').value;
+      const alasan = document.getElementById('izinAlasan').value.trim();
+      const fileInput = document.getElementById('izinBuktiFile');
+
+      let buktiBase64 = '';
+      if (fileInput.files.length > 0) {
+        buktiBase64 = await toBase64(fileInput.files[0]);
+      }
+
+      try {
+        const res = await callServer('submitIzin', {
+          id_kegiatan: idKeg,
+          nim: currentUser.nim,
+          alasan: alasan,
+          buktiBase64: buktiBase64
+        });
+
+        if (res && res.success) {
+          showToast(res.message, 'success');
+          closeModal('modalAjukanIzin');
+        } else {
+          showToast(res ? res.message : 'Gagal mengajukan izin.', 'error');
+        }
+      } catch (err) {
+        showToast('Terjadi kesalahan: ' + err.message, 'error');
+      }
+    }
+
     async function loadAllIzinData() {
       try {
         const res = await callServer('fetchAllIzin', {});
@@ -1636,7 +1802,7 @@
         return;
       }
 
-      let csv = 'NIM,Nama,Kegiatan,Tanggal,Jam,Status\n';
+      let csv = 'NIM,Nama,Kegiatan,Tanggal,Jam_WITA,Status\n';
       cachedRekap.forEach(r => {
         csv += `"${r.nim || ''}","${r.nama || ''}","${r.nama_kegiatan || ''}","${r.tanggal || ''}","${r.jam || ''}","${r.status || ''}"\n`;
       });
@@ -1645,11 +1811,11 @@
       const url = URL.createObjectURL(blob);
       const link = document.createElement('a');
       link.setAttribute('href', url);
-      link.setAttribute('download', 'REKAP_PRESENSI_SOLIDARITY_M_' + Date.now() + '.csv');
+      link.setAttribute('download', 'REKAP_PRESENSI_WITA_SAMARINDA_' + Date.now() + '.csv');
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
-      showToast('Rekap presensi berhasil diunduh (CSV).', 'success');
+      showToast('Rekap presensi WITA berhasil diunduh (CSV).', 'success');
     }
 
     function toBase64(file) {
