@@ -11,7 +11,7 @@
   <!-- Google Fonts: Inter & JetBrains Mono -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700;800&display=swap" rel="stylesheet">
   <!-- HTML5 QR Code & QR Generator CDN -->
   <script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
@@ -40,6 +40,7 @@
   </script>
 
   <style>
+    /* Industrial Background & Scrollbars */
     body {
       background-color: #0F1115;
       color: #FFFFFF;
@@ -357,8 +358,104 @@
             </div>
           </div>
 
+          <!-- KARTU STATISTIK UTAMA -->
           <div id="statsContainer" class="grid grid-cols-2 md:grid-cols-4 gap-4"></div>
 
+          <!-- ================= WIDGET FUTURISTIK KHUSUS MAHASISWA ================= -->
+          <div id="mahasiswaAnalyticsSection" class="hidden grid grid-cols-1 lg:grid-cols-12 gap-5">
+            <!-- 1. Radial Meter Performa Kehadiran -->
+            <div class="lg:col-span-5 bg-carbonLight border border-slatePanel rounded-3xl p-6 relative overflow-hidden shadow-2xl flex flex-col justify-between">
+              <div class="flex items-center justify-between border-b border-slatePanel/60 pb-3">
+                <div class="flex items-center gap-2">
+                  <span class="w-2.5 h-2.5 rounded-full bg-crimson animate-ping"></span>
+                  <h3 class="text-xs font-bold font-mono tracking-wider uppercase text-white">Analisis Rasio Presensi</h3>
+                </div>
+                <span class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-slateDark border border-slatePanel text-steel">WITA SAMARINDA</span>
+              </div>
+
+              <div class="my-6 flex flex-col sm:flex-row items-center justify-center gap-6">
+                <!-- Circular Radial Gauge (SVG) -->
+                <div class="relative w-36 h-36 shrink-0 flex items-center justify-center">
+                  <svg class="w-full h-full transform -rotate-90" viewBox="0 0 120 120">
+                    <circle cx="60" cy="60" r="48" stroke="#1E222B" stroke-width="12" fill="none" />
+                    <circle id="radialGaugeCircle" cx="60" cy="60" r="48" stroke="url(#gaugeGradient)" stroke-width="12" stroke-linecap="round" fill="none" stroke-dasharray="301.59" stroke-dashoffset="301.59" class="transition-all duration-1000 ease-out" />
+                    <defs>
+                      <linearGradient id="gaugeGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="#D32F2F" />
+                        <stop offset="100%" stop-color="#10B981" />
+                      </linearGradient>
+                    </defs>
+                  </svg>
+                  <div class="absolute inset-0 flex flex-col items-center justify-center text-center">
+                    <span id="dashGaugePercent" class="text-2xl font-black font-mono tracking-tight text-white">0%</span>
+                    <span class="text-[9px] font-mono text-steel uppercase tracking-widest mt-0.5">Kehadiran</span>
+                  </div>
+                </div>
+
+                <!-- Detail Indikator Breakdown -->
+                <div class="space-y-2 w-full max-w-xs text-xs">
+                  <div class="flex items-center justify-between p-2 rounded-xl bg-slateDark/60 border border-slatePanel">
+                    <div class="flex items-center gap-2">
+                      <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+                      <span class="text-steel">Tepat Waktu</span>
+                    </div>
+                    <span id="badgeHadirTepat" class="font-mono font-bold text-white">0</span>
+                  </div>
+                  <div class="flex items-center justify-between p-2 rounded-xl bg-slateDark/60 border border-slatePanel">
+                    <div class="flex items-center gap-2">
+                      <span class="w-2 h-2 rounded-full bg-amber-400"></span>
+                      <span class="text-steel">Terlambat</span>
+                    </div>
+                    <span id="badgeTerlambat" class="font-mono font-bold text-white">0</span>
+                  </div>
+                  <div class="flex items-center justify-between p-2 rounded-xl bg-slateDark/60 border border-slatePanel">
+                    <div class="flex items-center gap-2">
+                      <span class="w-2 h-2 rounded-full bg-sky-400"></span>
+                      <span class="text-steel">Izin Sah</span>
+                    </div>
+                    <span id="badgeIzin" class="font-mono font-bold text-white">0</span>
+                  </div>
+                  <div class="flex items-center justify-between p-2 rounded-xl bg-slateDark/60 border border-slatePanel">
+                    <div class="flex items-center gap-2">
+                      <span class="w-2 h-2 rounded-full bg-red-500"></span>
+                      <span class="text-steel">Alfa / Terlewat</span>
+                    </div>
+                    <span id="badgeAlfa" class="font-mono font-bold text-crimson">0</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="pt-3 border-t border-slatePanel/60 flex items-center justify-between text-[11px] text-steel font-mono">
+                <span>STATUS KELAYAKAN:</span>
+                <span id="kelayakanPresensiBadge" class="font-bold text-emerald-400 uppercase tracking-wider">MEMENUHI SYARAT</span>
+              </div>
+            </div>
+
+            <!-- 2. Feed Timeline Kehadiran Terbaru Mahasiswa -->
+            <div class="lg:col-span-7 bg-carbonLight border border-slatePanel rounded-3xl p-6 shadow-2xl flex flex-col justify-between">
+              <div class="flex items-center justify-between border-b border-slatePanel/60 pb-3">
+                <div class="flex items-center gap-2">
+                  <svg class="w-4 h-4 text-crimson" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                  <h3 class="text-xs font-bold font-mono tracking-wider uppercase text-white">Aktivitas Presensi Terakhir Saya</h3>
+                </div>
+                <button onclick="navigateTo('riwayat')" class="text-[11px] text-crimson font-mono hover:underline font-bold">Rincian Lengkap →</button>
+              </div>
+
+              <!-- List Feed Mini -->
+              <div id="dashStudentRecentLog" class="my-4 space-y-3 divide-y divide-slatePanel/40">
+                <!-- Diisi otomatis oleh renderStudentRecentLogs() -->
+              </div>
+
+              <div class="pt-3 border-t border-slatePanel/60 flex items-center justify-between">
+                <span class="text-[10px] text-steel font-mono">Sinkronisasi otomatis basis data Google Sheets</span>
+                <button onclick="navigateTo('scanner')" class="bg-crimson/20 hover:bg-crimson text-crimson hover:text-white border border-crimson/50 text-[11px] font-bold px-3 py-1.5 rounded-xl transition-all">
+                  + Presensi Sekarang
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Kegiatan Mendatang & Berlangsung -->
           <div class="space-y-3">
             <div class="flex items-center justify-between">
               <h3 class="text-sm font-bold tracking-wider uppercase font-mono text-steel">Kegiatan Mendatang & Berlangsung</h3>
@@ -459,12 +556,12 @@
           </div>
         </section>
 
-        <!-- ================= 4. VIEW RIWAYAT & REKAP ================= -->
+        <!-- ================= 4. VIEW RIWAYAT & REKAP (DENGAN OPSI HAPUS ADMIN) ================= -->
         <section id="view-riwayat" class="view-panel space-y-6">
           <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div>
               <h2 id="riwayatTitle" class="text-xl font-bold font-mono">RIWAYAT PRESENSI</h2>
-              <p class="text-xs text-steel">Log kehadiran lengkap dan pengajuan permohonan izin (Zona Waktu WITA)</p>
+              <p id="riwayatSubTitle" class="text-xs text-steel">Matriks kehadiran lengkap seluruh agenda kegiatan dan pengajuan permohonan izin (WITA)</p>
             </div>
             <div class="flex items-center gap-2">
               <button id="btnBukaAjukanIzin" onclick="openModalAjukanIzin()" class="bg-slateDark hover:bg-slatePanel border border-slatePanel text-white font-bold text-xs px-4 py-2.5 rounded-xl transition-all flex items-center gap-2">
@@ -477,8 +574,19 @@
             </div>
           </div>
 
+          <!-- TAB SWITCHER KHUSUS MAHASISWA -->
+          <div id="studentTabSwitcher" class="hidden grid grid-cols-2 bg-slateDark p-1 rounded-2xl border border-slatePanel max-w-md">
+            <button id="tabBtnMatrix" onclick="switchStudentRiwayatMode('matrix')" class="py-2.5 text-xs font-bold rounded-xl transition-all bg-crimson text-white shadow-md font-mono flex items-center justify-center gap-2">
+              <span>Status Semua Kegiatan</span>
+            </button>
+            <button id="tabBtnLogs" onclick="switchStudentRiwayatMode('logs')" class="py-2.5 text-xs font-bold rounded-xl transition-all text-steel hover:text-white font-mono flex items-center justify-center gap-2">
+              <span>Log Jam Presensi</span>
+            </button>
+          </div>
+
+          <!-- FILTER BAR -->
           <div class="bg-carbonLight border border-slatePanel p-3 rounded-xl flex flex-col md:flex-row gap-3">
-            <input type="text" id="searchRekap" oninput="filterRekapTable()" placeholder="Cari nama atau NIM..." class="flex-1 bg-slateDark border border-slatePanel rounded-lg px-3 py-2 text-xs focus:outline-none focus:border-crimson font-mono">
+            <input type="text" id="searchRekap" oninput="filterRekapTable()" placeholder="Cari agenda, nama, atau status..." class="flex-1 bg-slateDark border border-slatePanel rounded-lg px-3 py-2 text-xs focus:outline-none focus:border-crimson font-mono">
             <div class="flex gap-2">
               <select id="filterKegiatanSelect" onchange="filterRekapTable()" class="bg-slateDark border border-slatePanel rounded-lg px-3 py-2 text-xs focus:outline-none text-steel">
                 <option value="ALL">Semua Kegiatan</option>
@@ -488,20 +596,27 @@
                 <option value="Hadir">Hadir</option>
                 <option value="Terlambat">Terlambat</option>
                 <option value="Izin">Izin</option>
-                <option value="Alfa">Alfa</option>
+                <option value="Belum">Belum / Alfa</option>
               </select>
             </div>
           </div>
 
-          <div class="bg-carbonLight border border-slatePanel rounded-2xl overflow-hidden">
+          <!-- CONTAINER 1: TAMPILAN MATRIKS STATUS KEGIATAN MAHASISWA -->
+          <div id="studentMatrixContainer" class="hidden space-y-4">
+            <div id="matrixCardsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+          </div>
+
+          <!-- CONTAINER 2: TAMPILAN TABEL STANDAR DENGAN KOLOM AKSI HAPUS ADMIN -->
+          <div id="standardTableContainer" class="bg-carbonLight border border-slatePanel rounded-2xl overflow-hidden shadow-xl">
             <div class="overflow-x-auto">
               <table class="w-full text-left text-xs">
                 <thead class="bg-slateDark text-steel font-mono uppercase text-[10px] border-b border-slatePanel">
-                  <tr>
+                  <tr id="rekapTableHeaderRow">
                     <th class="p-3.5">Mahasiswa</th>
                     <th class="p-3.5">Kegiatan</th>
                     <th class="p-3.5">Waktu (WITA)</th>
                     <th class="p-3.5">Status</th>
+                    <th id="thAksiRekap" class="p-3.5 text-right hidden">Aksi</th>
                   </tr>
                 </thead>
                 <tbody id="rekapTableBody" class="divide-y divide-slatePanel"></tbody>
@@ -602,13 +717,11 @@
     </div>
   </div>
 
-  <!-- ================= MODAL TAMBAH KEGIATAN (WITA SAMARINDA OVERHAUL) ================= -->
+  <!-- MODAL TAMBAH KEGIATAN (WITA SAMARINDA OVERHAUL) -->
   <div id="modalTambahKegiatan" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-md hidden items-center justify-center p-4">
     <div class="bg-carbonLight border border-slatePanel rounded-3xl max-w-lg w-full p-6 shadow-2xl space-y-5 relative overflow-hidden">
-      <!-- Glow Accent Header -->
       <div class="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-transparent via-crimson to-transparent"></div>
 
-      <!-- Modal Header -->
       <div class="flex items-start justify-between border-b border-slatePanel/70 pb-4">
         <div>
           <div class="flex items-center gap-2">
@@ -621,7 +734,7 @@
         <button onclick="closeModal('modalTambahKegiatan')" class="p-2 rounded-xl bg-slateDark hover:bg-slatePanel text-steel hover:text-white transition-all text-sm">✕</button>
       </div>
 
-      <!-- Live Clock Banner Kota Samarinda -->
+      <!-- Live Clock Samarinda -->
       <div class="bg-slateDark/90 border border-slatePanel rounded-2xl p-3 flex items-center justify-between">
         <div class="flex items-center gap-2.5">
           <div class="w-8 h-8 rounded-xl bg-crimson/20 border border-crimson/40 flex items-center justify-center text-crimson">
@@ -637,7 +750,6 @@
         </span>
       </div>
 
-      <!-- Form Pembuatan Kegiatan -->
       <form onsubmit="handleSaveKegiatan(event)" class="space-y-4 text-xs">
         <div>
           <label class="block text-steel font-medium mb-1.5 uppercase text-[11px] tracking-wider">Nama Kegiatan</label>
@@ -657,7 +769,6 @@
           </div>
 
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            <!-- Waktu Mulai -->
             <div class="bg-slateDark border border-slatePanel rounded-xl p-2.5">
               <span class="block text-[10px] font-mono text-steel uppercase mb-1">Jam Mulai (WITA)</span>
               <div class="flex items-center gap-1.5">
@@ -668,7 +779,6 @@
               </div>
             </div>
 
-            <!-- Waktu Selesai -->
             <div class="bg-slateDark border border-slatePanel rounded-xl p-2.5">
               <span class="block text-[10px] font-mono text-steel uppercase mb-1">Jam Selesai (WITA)</span>
               <div class="flex items-center gap-1.5">
@@ -680,7 +790,6 @@
             </div>
           </div>
 
-          <!-- Quick Preset Jam Perkuliahan & HMM -->
           <div>
             <div class="text-[10px] text-steel font-mono mb-1.5">PILIHAN CEPAT AGENDA KAMPUS (WITA):</div>
             <div class="flex flex-wrap gap-1.5">
@@ -811,6 +920,8 @@
     let currentUser = null;
     let cachedKegiatan = [];
     let cachedRekap = [];
+    let cachedStudentMatrix = [];
+    let currentStudentRiwayatMode = 'matrix'; // 'matrix' atau 'logs'
     let html5QrScannerInstance = null;
     let clockIntervalId = null;
 
@@ -842,30 +953,24 @@
       menitMulai.innerHTML = '';
       menitSelesai.innerHTML = '';
 
-      // Jam 00 - 23
       for (let h = 0; h <= 23; h++) {
         const val = (h < 10 ? '0' : '') + h;
         jamMulai.innerHTML += `<option value="${val}">${val}</option>`;
         jamSelesai.innerHTML += `<option value="${val}">${val}</option>`;
       }
 
-      // Menit 00 - 55 (interval 5 menit)
       for (let m = 0; m <= 55; m += 5) {
         const val = (m < 10 ? '0' : '') + m;
         menitMulai.innerHTML += `<option value="${val}">${val}</option>`;
         menitSelesai.innerHTML += `<option value="${val}">${val}</option>`;
       }
 
-      // Default values: 08:00 - 10:00
       jamMulai.value = "08";
       menitMulai.value = "00";
       jamSelesai.value = "10";
       menitSelesai.value = "00";
     }
 
-    /**
-     * Mengisi Cepat Jam Menggunakan Preset Agenda Kampus
-     */
     function applyTimePreset(mulaiStr, selesaiStr) {
       const [mH, mM] = mulaiStr.split(':');
       const [sH, sM] = selesaiStr.split(':');
@@ -878,16 +983,12 @@
       showToast(`Waktu WITA disetel ke ${mulaiStr} - ${selesaiStr}`, 'info');
     }
 
-    /**
-     * Menjalankan Jam Digital Real-Time Kota Samarinda (WITA / UTC+8)
-     */
     function startSamarindaClock() {
       const updateClock = () => {
         const el = document.getElementById('samarindaClockDisplay');
         if (!el) return;
 
         const now = new Date();
-        // Konversi ke zona waktu Asia/Makassar (WITA)
         const timeStr = new Intl.DateTimeFormat('id-ID', {
           timeZone: 'Asia/Makassar',
           hour: '2-digit',
@@ -904,14 +1005,11 @@
       clockIntervalId = setInterval(updateClock, 1000);
     }
 
-    /**
-     * Pembungkus Pemanggilan Server Universal (Dual-Mode: Apps Script Container & GitHub Pages)
-     */
     function callServer(actionName, payload = {}) {
       return new Promise(async (resolve, reject) => {
         showLoading(true);
 
-        // 1. Jika dibuka langsung di dalam lingkungan Google Apps Script
+        // Lingkungan Google Apps Script
         if (typeof google !== 'undefined' && google.script && google.script.run) {
           const runner = google.script.run
             .withSuccessHandler(res => {
@@ -935,7 +1033,7 @@
           return;
         }
 
-        // 2. Jika dihosting di GitHub Pages / Luar Apps Script (fetch HTTP POST)
+        // Lingkungan Eksternal / GitHub Pages
         try {
           const response = await fetch(GAS_BACKEND_URL, {
             method: 'POST',
@@ -1133,19 +1231,32 @@
       const btnTambahKeg = document.getElementById('btnTambahKegiatan');
       const btnExport = document.getElementById('btnExportCsv');
       const mobileNavAdminBtn = document.getElementById('mobileNavAdminBtn');
+      const mhsSection = document.getElementById('mahasiswaAnalyticsSection');
+      const studentTabSwitcher = document.getElementById('studentTabSwitcher');
+      const thAksiRekap = document.getElementById('thAksiRekap');
 
       if (isAdmin) {
         adminNavGroup.classList.remove('hidden');
         btnTambahKeg.classList.remove('hidden');
         btnExport.classList.remove('hidden');
         mobileNavAdminBtn.classList.remove('hidden');
+        mhsSection.classList.add('hidden');
+        studentTabSwitcher.classList.add('hidden');
+        thAksiRekap.classList.remove('hidden');
         document.getElementById('riwayatTitle').innerText = 'MONITORING PRESENSI KELAS (WITA)';
+        document.getElementById('riwayatSubTitle').innerText = 'Log kehadiran real-time seluruh mahasiswa teknik mesin';
+        document.getElementById('studentMatrixContainer').classList.add('hidden');
+        document.getElementById('standardTableContainer').classList.remove('hidden');
       } else {
         adminNavGroup.classList.add('hidden');
         btnTambahKeg.classList.add('hidden');
         btnExport.classList.add('hidden');
         mobileNavAdminBtn.classList.add('hidden');
-        document.getElementById('riwayatTitle').innerText = 'RIWAYAT PRESENSI SAYA (WITA)';
+        mhsSection.classList.remove('hidden');
+        studentTabSwitcher.classList.remove('hidden');
+        thAksiRekap.classList.add('hidden');
+        document.getElementById('riwayatTitle').innerText = 'STATUS & RIWAYAT PRESENSI SAYA';
+        document.getElementById('riwayatSubTitle').innerText = 'Ketahui presensi Anda di seluruh agenda kegiatan (WITA)';
       }
 
       navigateTo('dashboard');
@@ -1180,10 +1291,10 @@
 
       if (currentUser.role === 'Mahasiswa') {
         const items = [
-          { label: 'TOTAL KEGIATAN', val: stats.totalKegiatan, color: 'text-white' },
+          { label: 'TOTAL AGENDA', val: stats.totalKegiatan, color: 'text-white' },
           { label: 'HADIR TEPAT', val: stats.hadir, color: 'text-emerald-400' },
           { label: 'TERLAMBAT / IZIN', val: (stats.terlambat + stats.izin), color: 'text-amber-400' },
-          { label: 'PERSENTASE', val: stats.persentase + '%', color: 'text-crimson font-mono' }
+          { label: 'RASIO PRESENSI', val: stats.persentase + '%', color: 'text-crimson font-mono' }
         ];
 
         items.forEach(it => {
@@ -1195,6 +1306,9 @@
             </div>
           `;
         });
+
+        // Update Circular Radial Gauge Mahasiswa
+        updateStudentGauge(stats);
       } else {
         const items = [
           { label: 'TOTAL MAHASISWA', val: stats.totalMahasiswa, color: 'text-white' },
@@ -1212,6 +1326,41 @@
             </div>
           `;
         });
+      }
+    }
+
+    function updateStudentGauge(stats) {
+      const circle = document.getElementById('radialGaugeCircle');
+      const percentEl = document.getElementById('dashGaugePercent');
+      const badgeHadir = document.getElementById('badgeHadirTepat');
+      const badgeTerlambat = document.getElementById('badgeTerlambat');
+      const badgeIzin = document.getElementById('badgeIzin');
+      const badgeAlfa = document.getElementById('badgeAlfa');
+      const statusKelayakan = document.getElementById('kelayakanPresensiBadge');
+
+      const percent = Math.min(100, Math.max(0, stats.persentase || 0));
+      percentEl.innerText = percent + '%';
+
+      if (badgeHadir) badgeHadir.innerText = stats.hadir || 0;
+      if (badgeTerlambat) badgeTerlambat.innerText = stats.terlambat || 0;
+      if (badgeIzin) badgeIzin.innerText = stats.izin || 0;
+      if (badgeAlfa) badgeAlfa.innerText = stats.alfa || 0;
+
+      const circumference = 301.59;
+      const offset = circumference - (percent / 100) * circumference;
+      if (circle) circle.style.strokeDashoffset = offset;
+
+      if (statusKelayakan) {
+        if (percent >= 80) {
+          statusKelayakan.innerText = 'MEMENUHI SYARAT (DISIPLIN TINGGI)';
+          statusKelayakan.className = 'font-bold text-emerald-400 uppercase tracking-wider';
+        } else if (percent >= 60) {
+          statusKelayakan.innerText = 'CUKUP (PERINGATAN MINIMAL)';
+          statusKelayakan.className = 'font-bold text-amber-400 uppercase tracking-wider';
+        } else {
+          statusKelayakan.innerText = 'KURANG (PERLU PEMBINAAN HMM)';
+          statusKelayakan.className = 'font-bold text-crimson uppercase tracking-wider';
+        }
       }
     }
 
@@ -1462,28 +1611,181 @@
 
     async function loadRiwayatData() {
       try {
-        let res;
         if (currentUser.role === 'Admin') {
-          res = await callServer('fetchRekapPresensi', { idKegiatan: 'ALL', status: 'ALL' });
+          const res = await callServer('fetchRekapPresensi', { idKegiatan: 'ALL', status: 'ALL' });
+          if (res && res.success) {
+            cachedRekap = res.data || [];
+            renderRekapTable(cachedRekap);
+          }
         } else {
-          res = await callServer('fetchRiwayatMahasiswa', { nim: currentUser.nim });
-        }
+          const res = await callServer('fetchRiwayatMahasiswa', { nim: currentUser.nim });
+          if (res && res.success) {
+            cachedRekap = res.data || [];
+            cachedStudentMatrix = res.matrix || [];
 
-        if (res && res.success) {
-          cachedRekap = res.data || [];
-          renderRekapTable(cachedRekap);
+            renderStudentRecentLogs(cachedRekap.slice(0, 3));
+            renderStudentMatrixCards(cachedStudentMatrix);
+            renderRekapTable(cachedRekap);
+
+            if (res.summary) {
+              const totalK = res.summary.totalKegiatan;
+              const totalHadir = res.summary.hadir + res.summary.terlambat;
+              const percent = totalK > 0 ? Math.min(100, Math.round((totalHadir / totalK) * 100)) : 100;
+              updateStudentGauge({
+                persentase: percent,
+                hadir: res.summary.hadir,
+                terlambat: res.summary.terlambat,
+                izin: res.summary.izin,
+                alfa: res.summary.belumAbsen
+              });
+            }
+
+            switchStudentRiwayatMode(currentStudentRiwayatMode);
+          }
         }
       } catch (e) {
         console.error('Error load riwayat:', e);
       }
     }
 
+    function switchStudentRiwayatMode(mode) {
+      currentStudentRiwayatMode = mode;
+      const btnMatrix = document.getElementById('tabBtnMatrix');
+      const btnLogs = document.getElementById('tabBtnLogs');
+      const matrixCont = document.getElementById('studentMatrixContainer');
+      const tableCont = document.getElementById('standardTableContainer');
+
+      if (currentUser.role === 'Admin') {
+        matrixCont.classList.add('hidden');
+        tableCont.classList.remove('hidden');
+        return;
+      }
+
+      if (mode === 'matrix') {
+        btnMatrix.className = 'py-2.5 text-xs font-bold rounded-xl transition-all bg-crimson text-white shadow-md font-mono flex items-center justify-center gap-2';
+        btnLogs.className = 'py-2.5 text-xs font-bold rounded-xl transition-all text-steel hover:text-white font-mono flex items-center justify-center gap-2';
+        matrixCont.classList.remove('hidden');
+        tableCont.classList.add('hidden');
+      } else {
+        btnLogs.className = 'py-2.5 text-xs font-bold rounded-xl transition-all bg-crimson text-white shadow-md font-mono flex items-center justify-center gap-2';
+        btnMatrix.className = 'py-2.5 text-xs font-bold rounded-xl transition-all text-steel hover:text-white font-mono flex items-center justify-center gap-2';
+        matrixCont.classList.add('hidden');
+        tableCont.classList.remove('hidden');
+      }
+    }
+
+    function renderStudentRecentLogs(logs) {
+      const container = document.getElementById('dashStudentRecentLog');
+      if (!container) return;
+      container.innerHTML = '';
+
+      if (!logs || logs.length === 0) {
+        container.innerHTML = `<div class="p-6 text-center text-steel text-xs font-mono border border-dashed border-slatePanel rounded-2xl">Belum ada riwayat kehadiran tercatat.</div>`;
+        return;
+      }
+
+      logs.forEach(log => {
+        const badgeColor = log.status === 'Hadir' ? 'bg-emerald-500/20 text-emerald-400 border-emerald-500/40' :
+          (log.status === 'Terlambat' ? 'bg-amber-500/20 text-amber-400 border-amber-500/40' :
+          (log.status === 'Izin' ? 'bg-sky-500/20 text-sky-400 border-sky-500/40' : 'bg-red-500/20 text-crimson border-red-500/40'));
+
+        container.innerHTML += `
+          <div class="pt-2.5 pb-1 flex items-center justify-between gap-3">
+            <div class="overflow-hidden">
+              <div class="font-bold text-white text-xs truncate">${log.nama_kegiatan}</div>
+              <div class="text-[10px] text-steel font-mono flex items-center gap-2 mt-0.5">
+                <span>${log.tanggal}</span>
+                <span>•</span>
+                <span class="text-steelLight">${log.jam} WITA</span>
+              </div>
+            </div>
+            <span class="px-2.5 py-1 rounded-full border text-[10px] font-mono font-bold shrink-0 ${badgeColor}">${log.status}</span>
+          </div>
+        `;
+      });
+    }
+
+    function renderStudentMatrixCards(matrixItems) {
+      const grid = document.getElementById('matrixCardsGrid');
+      if (!grid) return;
+      grid.innerHTML = '';
+
+      if (!matrixItems || matrixItems.length === 0) {
+        grid.innerHTML = `<div class="col-span-full p-8 text-center text-steel text-xs font-mono border border-dashed border-slatePanel rounded-2xl">Belum ada kegiatan yang terdaftar dalam kalender HMM.</div>`;
+        return;
+      }
+
+      matrixItems.forEach(item => {
+        let badgeClass = 'bg-red-500/20 text-crimson border-crimson/50';
+        let iconSvg = `✕`;
+
+        if (item.badge_type === 'hadir') {
+          badgeClass = 'bg-emerald-500/20 text-emerald-400 border-emerald-500/50';
+          iconSvg = `✓`;
+        } else if (item.badge_type === 'terlambat') {
+          badgeClass = 'bg-amber-500/20 text-amber-400 border-amber-500/50';
+          iconSvg = `⏱`;
+        } else if (item.badge_type === 'izin') {
+          badgeClass = 'bg-sky-500/20 text-sky-400 border-sky-500/50';
+          iconSvg = `📋`;
+        } else if (item.badge_type === 'mendatang') {
+          badgeClass = 'bg-slatePanel text-steel border-steel/30';
+          iconSvg = `⏳`;
+        } else if (item.badge_type === 'belum_absen') {
+          badgeClass = 'bg-red-950/80 text-crimson border-crimson/60 animate-pulse';
+          iconSvg = `!`;
+        }
+
+        grid.innerHTML += `
+          <div class="bg-carbonLight border border-slatePanel rounded-2xl p-5 shadow-xl flex flex-col justify-between relative overflow-hidden group hover:border-crimson/50 transition-all">
+            <div>
+              <div class="flex items-center justify-between gap-2 mb-2.5">
+                <span class="text-[10px] font-mono px-2 py-0.5 rounded-full border border-slatePanel bg-slateDark text-steel">${item.tanggal}</span>
+                <span class="px-2.5 py-0.5 rounded-full border text-[10px] font-mono font-extrabold flex items-center gap-1 ${badgeClass}">
+                  <span>${iconSvg}</span>
+                  <span>${item.status_kehadiran}</span>
+                </span>
+              </div>
+              <h4 class="text-sm font-bold text-white group-hover:text-crimson transition-colors">${item.nama_kegiatan}</h4>
+              <div class="flex items-center gap-2 text-[11px] text-steel font-mono mt-2">
+                <svg class="w-3.5 h-3.5 text-crimson shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                <span>${item.waktu}</span>
+              </div>
+              <div class="flex items-center gap-2 text-[11px] text-steel mt-1">
+                <svg class="w-3.5 h-3.5 text-crimson shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/></svg>
+                <span class="truncate">${item.lokasi}</span>
+              </div>
+            </div>
+
+            <div class="mt-4 pt-3 border-t border-slatePanel/60 flex items-center justify-between text-[11px]">
+              <div class="text-[10px] font-mono text-steel">
+                ${item.jam_hadir !== '-' ? `Presensi: <span class="text-white font-bold">${item.jam_hadir}</span>` : `<span class="text-steel/70">Status: ${item.status_kehadiran}</span>`}
+              </div>
+              ${item.badge_type === 'belum_absen' ? `
+                <button onclick="navigateTo('scanner')" class="px-2.5 py-1 bg-crimson hover:bg-red-600 text-white font-bold text-[10px] rounded-lg transition-all">
+                  Presensi Sekarang
+                </button>
+              ` : (item.badge_type === 'alfa' ? `
+                <button onclick="openModalAjukanIzin()" class="px-2 py-0.5 bg-slateDark hover:bg-slatePanel text-steel hover:text-white text-[10px] rounded border border-slatePanel transition-all">
+                  Ajukan Izin Susulan
+                </button>
+              ` : `
+                <span class="text-[10px] font-mono text-emerald-400">Tercatat</span>
+              `)}
+            </div>
+          </div>
+        `;
+      });
+    }
+
     function renderRekapTable(items) {
       const tbody = document.getElementById('rekapTableBody');
+      const isAdmin = (currentUser && currentUser.role === 'Admin');
+      const colSpanCount = isAdmin ? 5 : 4;
       tbody.innerHTML = '';
 
       if (items.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="4" class="p-6 text-center text-steel">Tidak ada catatan kehadiran ditemukan.</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="${colSpanCount}" class="p-6 text-center text-steel">Tidak ada catatan kehadiran ditemukan.</td></tr>`;
         return;
       }
 
@@ -1491,6 +1793,9 @@
         const badgeColor = r.status === 'Hadir' ? 'bg-emerald-500/20 text-emerald-400 border-emerald-500/40' :
           (r.status === 'Terlambat' ? 'bg-amber-500/20 text-amber-400 border-amber-500/40' :
           (r.status === 'Izin' ? 'bg-sky-500/20 text-sky-400 border-sky-500/40' : 'bg-red-500/20 text-crimson border-red-500/40'));
+
+        const cleanNama = (r.nama || currentUser.nama || '').replace(/'/g, "\\'");
+        const cleanKegiatan = (r.nama_kegiatan || '').replace(/'/g, "\\'");
 
         tbody.innerHTML += `
           <tr class="hover:bg-slateDark/40 transition-colors">
@@ -1506,9 +1811,36 @@
             <td class="p-3.5">
               <span class="px-2 py-0.5 rounded border text-[10px] font-mono font-semibold ${badgeColor}">${r.status}</span>
             </td>
+            ${isAdmin ? `
+              <td class="p-3.5 text-right">
+                <button onclick="handleDeleteAbsensi('${r.id_absensi}', '${cleanNama}', '${cleanKegiatan}')" title="Hapus Presensi Mahasiswa Ini" class="p-1.5 rounded-xl bg-slateDark hover:bg-red-950 text-steel hover:text-crimson border border-slatePanel hover:border-crimson/50 transition-all">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+                </button>
+              </td>
+            ` : ''}
           </tr>
         `;
       });
+    }
+
+    function handleDeleteAbsensi(idAbsensi, nama, kegiatan) {
+      openConfirmModal(
+        'Hapus Catatan Presensi',
+        `Apakah Anda yakin ingin menghapus data presensi "${nama}" pada kegiatan "${kegiatan}"? Data ini akan dihapus permanen dari basis data presensi.`,
+        async () => {
+          try {
+            const res = await callServer('deleteAbsensi', { idAbsensi: idAbsensi });
+            if (res && res.success) {
+              showToast(res.message, 'success');
+              loadAllInitialData();
+            } else {
+              showToast(res ? res.message : 'Gagal menghapus catatan presensi.', 'error');
+            }
+          } catch (err) {
+            showToast('Error server: ' + err.message, 'error');
+          }
+        }
+      );
     }
 
     function filterRekapTable() {
@@ -1516,16 +1848,35 @@
       const kegFilter = document.getElementById('filterKegiatanSelect').value;
       const stFilter = document.getElementById('filterStatusSelect').value;
 
-      const filtered = cachedRekap.filter(item => {
+      // Filter tabel log presensi
+      const filteredLogs = cachedRekap.filter(item => {
         const matchSearch = (!item.nama || item.nama.toLowerCase().includes(search)) ||
                             (!item.nim || String(item.nim).includes(search)) ||
                             (item.nama_kegiatan && item.nama_kegiatan.toLowerCase().includes(search));
         const matchKeg = (kegFilter === 'ALL' || item.id_kegiatan === kegFilter);
-        const matchSt = (stFilter === 'ALL' || item.status.toLowerCase() === stFilter.toLowerCase());
+        const matchSt = (stFilter === 'ALL' || item.status.toLowerCase().includes(stFilter.toLowerCase()));
         return matchSearch && matchKeg && matchSt;
       });
+      renderRekapTable(filteredLogs);
 
-      renderRekapTable(filtered);
+      // Filter matriks kartu kegiatan mahasiswa
+      if (currentUser.role === 'Mahasiswa') {
+        const filteredMatrix = cachedStudentMatrix.filter(m => {
+          const matchSearch = (!m.nama_kegiatan || m.nama_kegiatan.toLowerCase().includes(search)) ||
+                              (!m.lokasi || m.lokasi.toLowerCase().includes(search));
+          const matchKeg = (kegFilter === 'ALL' || m.id_kegiatan === kegFilter);
+          let matchSt = true;
+          if (stFilter !== 'ALL') {
+            if (stFilter === 'Belum') {
+              matchSt = m.status_kehadiran.toLowerCase().includes('belum') || m.status_kehadiran.toLowerCase().includes('alfa');
+            } else {
+              matchSt = m.status_kehadiran.toLowerCase().includes(stFilter.toLowerCase());
+            }
+          }
+          return matchSearch && matchKeg && matchSt;
+        });
+        renderStudentMatrixCards(filteredMatrix);
+      }
     }
 
     function populateKegiatanDropdowns(kegiatans) {
@@ -1542,7 +1893,6 @@
     }
 
     function openModalTambahKegiatan() {
-      // Set tanggal default ke hari ini di Samarinda
       const now = new Date();
       const todaySamarinda = new Intl.DateTimeFormat('en-CA', {
         timeZone: 'Asia/Makassar',
@@ -1554,7 +1904,6 @@
       const tglInput = document.getElementById('kegTanggal');
       if (tglInput) tglInput.value = todaySamarinda;
 
-      // Start live clock Samarinda
       startSamarindaClock();
       openModal('modalTambahKegiatan');
     }
@@ -1567,7 +1916,6 @@
       const lokasi = document.getElementById('kegLokasi').value.trim();
       const deskripsi = document.getElementById('kegDeskripsi').value.trim();
 
-      // Ambil waktu dari 24-Hour Selector
       const mulaiJam = document.getElementById('kegMulaiJam').value;
       const mulaiMenit = document.getElementById('kegMulaiMenit').value;
       const selesaiJam = document.getElementById('kegSelesaiJam').value;
@@ -1728,6 +2076,7 @@
         if (res && res.success) {
           showToast(res.message, 'success');
           closeModal('modalAjukanIzin');
+          loadRiwayatData();
         } else {
           showToast(res ? res.message : 'Gagal mengajukan izin.', 'error');
         }
